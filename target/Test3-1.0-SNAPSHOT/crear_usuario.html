@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <title>Crear Usuario</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: 'Segoe UI', sans-serif;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            background: #f0f2f5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .register-container {
+            background: #fff;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            width: 320px;
+            text-align: center;
+        }
+
+        h2 {
+            margin-bottom: 1.5rem;
+            color: #333;
+        }
+
+        input, button {
+            width: 100%;
+            padding: 10px;
+            margin: 8px 0;
+            border-radius: 8px;
+            font-size: 14px;
+        }
+
+        input {
+            border: 1px solid #ccc;
+        }
+
+        button {
+            background-color: #4A90E2;
+            border: none;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #357ABD;
+        }
+
+        .link {
+            display: block;
+            margin-top: 1rem;
+            font-size: 14px;
+            color: #4A90E2;
+            text-decoration: none;
+        }
+
+        .link:hover {
+            text-decoration: underline;
+        }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/js-cookie@3.0.5/dist/js.cookie.min.js"></script>
+</head>
+<body>
+    <div class="register-container">
+        <h2>Crear Usuario</h2>
+        <form id="registerForm">
+            <input type="text" id="dniCli" placeholder="DNI" maxlength="8" required />
+            <input type="text" id="apaCli" placeholder="Apellido Paterno" required />
+            <input type="text" id="amaCli" placeholder="Apellido Materno" required />
+            <input type="text" id="nomCli" placeholder="Nombre" required />
+            <input type="date" id="fchNacCli" placeholder="Fecha de Nacimiento" required />
+            <input type="text" id="logiCli" placeholder="Nombre de usuario" required />
+            <input type="password" id="pasCli" placeholder="ContraseÃ±a" required />
+            <input type="password" id="confirmPassword" placeholder="Confirmar contraseÃ±a" required />
+            <button type="submit">Registrar</button>
+        </form>
+        <a class="link" href="index.html">Volver al login</a>
+    </div>
+
+    <script>
+        document.getElementById('registerForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const dniCli = document.getElementById('dniCli').value.trim();
+            const apaCli = document.getElementById('apaCli').value.trim();
+            const amaCli = document.getElementById('amaCli').value.trim();
+            const nomCli = document.getElementById('nomCli').value.trim();
+            const fchNacCli = document.getElementById('fchNacCli').value;
+            const logiCli = document.getElementById('logiCli').value.trim();
+            const pasCli = document.getElementById('pasCli').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+
+            if (pasCli !== confirmPassword) {
+                alert('Las contraseÃ±as no coinciden');
+                return;
+            }
+
+            // Validar que fecha sea vÃ¡lida
+            if (!fchNacCli) {
+                alert('Debe seleccionar una fecha de nacimiento vÃ¡lida');
+                return;
+            }
+
+            try {
+                const res = await fetch('http://localhost:8080/Test3/crearusuario', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ dniCli, apaCli, amaCli, nomCli, fchNacCli, logiCli, pasCli }),
+                });
+
+                const data = await res.json();
+
+                if (data.success) {
+                    alert('Usuario creado exitosamente');
+                    window.location.href = "index.html"; // Volver a login
+                } else {
+                    alert('Error: ' + data.message);
+                }
+            } catch (error) {
+                alert('Error en la conexiÃ³n con el servidor');
+                console.error(error);
+            }
+        });
+    </script>
+
+</body>
+</html>
