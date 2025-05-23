@@ -1,6 +1,7 @@
 dao\exceptions\NonexistentEntityException.class
 utils\JwtUtil.class
 dto\Cliente_.class
+servlets\Login.class
 dao\exceptions\PreexistingEntityException.class
 dao\ClienteJpaController.class
 dao\exceptions\IllegalOrphanException.class

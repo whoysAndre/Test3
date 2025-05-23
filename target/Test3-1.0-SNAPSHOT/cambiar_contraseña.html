@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8"/>
+        <title>Cambiar Contraseña</title>
+        <style>
+            body {
+                background: #f0f2f5;
+                font-family: 'Segoe UI', sans-serif;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                height: 100vh;
+            }
+
+            .change-container {
+                background: #fff;
+                padding: 2rem;
+                border-radius: 12px;
+                box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+                width: 300px;
+                text-align: center;
+            }
+
+            h2 {
+                color: #333;
+                margin-bottom: 1rem;
+            }
+
+            input, button {
+                width: 100%;
+                padding: 10px;
+                margin: 8px 0;
+                border-radius: 8px;
+                font-size: 14px;
+            }
+
+            input {
+                border: 1px solid #ccc;
+            }
+
+            button {
+                background-color: #4CAF50;
+                border: none;
+                color: white;
+                font-size: 16px;
+                cursor: pointer;
+            }
+
+            button:hover {
+                background-color: #3e8e41;
+            }
+
+            .link {
+                display: block;
+                margin-top: 1rem;
+                font-size: 14px;
+                color: #4A90E2;
+                text-decoration: none;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="change-container">
+            <h2>Cambiar Contraseña</h2>
+            <form id="changeForm">
+                <input type="text" id="username" placeholder="Usuario" required />
+                <input type="password" id="currentPassword" placeholder="Contraseña actual" required />
+                <input type="password" id="newPassword" placeholder="Nueva contraseña" required />
+                <button type="submit">Cambiar</button>
+            </form>
+            <a class="link" href="index.html">Volver al login</a>
+        </div>
+
+        <script>
+            document.getElementById('changeForm').addEventListener('submit', async (e) => {
+                e.preventDefault();
+
+                const username = document.getElementById('username').value;
+                const currentPassword = document.getElementById('currentPassword').value;
+                const newPassword = document.getElementById('newPassword').value;
+
+                const res = await fetch('http://localhost:8080/change-password', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({username, currentPassword, newPassword}),
+                });
+
+                const data = await res.json();
+
+                if (res.ok) {
+                    alert('Contraseña cambiada correctamente');
+                    window.location.href = 'index.html';
+                } else {
+                    alert('Error: ' + data.message);
+                }
+            });
+        </script>
+    </body>
+</html>

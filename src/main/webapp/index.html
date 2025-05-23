@@ -1,4 +1,4 @@
-<!-- index.html -->
+
 <!DOCTYPE html>
 <html lang="es">
     <head>
@@ -71,6 +71,7 @@
                 text-decoration: underline;
             }
         </style>
+         <script src="https://cdn.jsdelivr.net/npm/js-cookie@3.0.5/dist/js.cookie.min.js"></script>
     </head>
     <body>
         <div class="login-container">
@@ -84,12 +85,6 @@
         </div>
 
         <script>
-            function setCookie(name, value, days) {
-                const d = new Date();
-                d.setTime(d.getTime() + (days * 24 * 60 * 60 * 1000));
-                const expires = "expires=" + d.toUTCString();
-                document.cookie = name + "=" + value + ";" + expires + ";path=/";
-            }
 
             document.getElementById('loginForm').addEventListener('submit', async (e) => {
                 e.preventDefault();
@@ -97,7 +92,7 @@
                 const username = document.getElementById('username').value;
                 const password = document.getElementById('password').value;
 
-                const res = await fetch('http://localhost:8080/login', {
+                const res = await fetch('http://localhost:8080/Test3/login', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -107,9 +102,12 @@
 
                 const data = await res.json();
 
-                if (res.ok) {
+                console.log(data);
+
+                if (data.success) {
                     alert('Login exitoso');
-                    setCookie('token', data.token, 1);
+                    Cookies.set('token', data.token, { expires: 7 }); // Guardar el token en una cookie
+
                     console.log("Token guardado en cookie:", data.token);
                 } else {
                     alert('Error: ' + data.message);
