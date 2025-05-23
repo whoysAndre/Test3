@@ -140,6 +140,19 @@ public class ClienteJpaController implements Serializable {
             return null;
         }
     }
+     
+    public Cliente findClienteByUsername(String username) {
+        EntityManager em = getEntityManager();
+        try {
+            Query query = em.createNamedQuery("Cliente.findByLogiCli");
+            query.setParameter("logiCli", username);
+            return (Cliente) query.getSingleResult();
+        } catch (Exception e) {
+            return null;
+        } finally {
+            em.close();
+        }
+    }
 
     public int getClienteCount() {
         EntityManager em = getEntityManager();
@@ -158,6 +171,9 @@ public class ClienteJpaController implements Serializable {
         try {
             ClienteJpaController clienteDAO = new ClienteJpaController();
             Cliente cl = clienteDAO.validar(new Cliente("rod","1234"));
+            Cliente cl2 = clienteDAO.findClienteByUsername("rod");
+            System.out.println(cl2.getApaCli());
+            
             if(cl!=null){
                 System.out.println("Correcto");
             }

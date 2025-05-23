@@ -83,9 +83,9 @@
                 const res = await fetch('http://localhost:8080/change-password', {
                     method: 'POST',
                     headers: {
-                        'Content-Type': 'application/json',
+                        'Content-Type': 'application/json'
                     },
-                    body: JSON.stringify({username, currentPassword, newPassword}),
+                    body: JSON.stringify({username, currentPassword, newPassword})
                 });
 
                 const data = await res.json();
