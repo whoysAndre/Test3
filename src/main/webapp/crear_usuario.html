@@ -102,13 +102,13 @@
             const confirmPassword = document.getElementById('confirmPassword').value;
 
             if (pasCli !== confirmPassword) {
-                alert('Las contraseÃ±as no coinciden');
+                alert('Las contraseñas no coinciden');
                 return;
             }
 
             // Validar que fecha sea vÃ¡lida
             if (!fchNacCli) {
-                alert('Debe seleccionar una fecha de nacimiento vÃ¡lida');
+                alert('Debe seleccionar una fecha de nacimiento valida');
                 return;
             }
 
@@ -130,7 +130,7 @@
                     alert('Error: ' + data.message);
                 }
             } catch (error) {
-                alert('Error en la conexiÃ³n con el servidor');
+                alert('Error en la conexión con el servidor');
                 console.error(error);
             }
         });
