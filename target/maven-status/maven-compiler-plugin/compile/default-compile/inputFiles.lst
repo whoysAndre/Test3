@@ -1,2 +1,6 @@
 D:\java\Test3\src\main\java\utils\JwtUtil.java
+D:\java\Test3\src\main\java\dao\exceptions\IllegalOrphanException.java
+D:\java\Test3\src\main\java\dao\exceptions\PreexistingEntityException.java
+D:\java\Test3\src\main\java\dao\exceptions\NonexistentEntityException.java
+D:\java\Test3\src\main\java\dao\ClienteJpaController.java
 D:\java\Test3\src\main\java\dto\Cliente.java

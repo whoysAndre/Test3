@@ -13,19 +13,20 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Query;
 import javax.persistence.EntityNotFoundException;
+import javax.persistence.Persistence;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
-/**
- *
- * @author HATSUMY
- */
 public class ClienteJpaController implements Serializable {
 
+    public ClienteJpaController() {
+    }
+
+    
     public ClienteJpaController(EntityManagerFactory emf) {
         this.emf = emf;
     }
-    private EntityManagerFactory emf = null;
+    private EntityManagerFactory emf = Persistence.createEntityManagerFactory("com.mycompany_Test3_war_1.0-SNAPSHOTPU");
 
     public EntityManager getEntityManager() {
         return emf.createEntityManager();
@@ -126,6 +127,19 @@ public class ClienteJpaController implements Serializable {
             em.close();
         }
     }
+    
+     public Cliente validar(Cliente u) {
+        EntityManager em = getEntityManager();
+        try {
+            Query query = em.createNamedQuery("Cliente.validar");
+            query.setParameter("logiCli", u.getLogiCli());
+            query.setParameter("pasCli", u.getPasCli());
+            u = (Cliente) query.getSingleResult();
+            return u;
+        } catch (Exception e) {
+            return null;
+        }
+    }
 
     public int getClienteCount() {
         EntityManager em = getEntityManager();
@@ -137,6 +151,18 @@ public class ClienteJpaController implements Serializable {
             return ((Long) q.getSingleResult()).intValue();
         } finally {
             em.close();
+        }
+    }
+    
+    public static void main(String[] args) {
+        try {
+            ClienteJpaController clienteDAO = new ClienteJpaController();
+            Cliente cl = clienteDAO.validar(new Cliente("rod","1234"));
+            if(cl!=null){
+                System.out.println("Correcto");
+            }
+            
+        } catch (Exception e) {
         }
     }
     

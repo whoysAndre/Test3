@@ -19,10 +19,6 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
-/**
- *
- * @author yello
- */
 @Entity
 @Table(name = "cliente")
 @XmlRootElement
@@ -35,7 +31,9 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Cliente.findByNomCli", query = "SELECT c FROM Cliente c WHERE c.nomCli = :nomCli"),
     @NamedQuery(name = "Cliente.findByFchNacCli", query = "SELECT c FROM Cliente c WHERE c.fchNacCli = :fchNacCli"),
     @NamedQuery(name = "Cliente.findByLogiCli", query = "SELECT c FROM Cliente c WHERE c.logiCli = :logiCli"),
-    @NamedQuery(name = "Cliente.findByPasCli", query = "SELECT c FROM Cliente c WHERE c.pasCli = :pasCli")})
+    @NamedQuery(name = "Cliente.findByPasCli", query = "SELECT c FROM Cliente c WHERE c.pasCli = :pasCli"),
+    @NamedQuery(name = "Cliente.validar", query = "SELECT c FROM Cliente c WHERE c.logiCli = :logiCli AND c.pasCli = :pasCli")
+})
 public class Cliente implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -87,6 +85,11 @@ public class Cliente implements Serializable {
         this.codCli = codCli;
     }
 
+    public Cliente(String logiCli, String pasCli) {
+        this.logiCli = logiCli;
+        this.pasCli = pasCli;
+    }
+    
     public Cliente(Integer codCli, String dniCli, String apaCli, String amaCli, String nomCli, Date fchNacCli, String logiCli, String pasCli) {
         this.codCli = codCli;
         this.dniCli = dniCli;
