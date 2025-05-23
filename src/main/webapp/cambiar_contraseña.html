@@ -1,27 +1,19 @@
-<!-- index.html -->
 <!DOCTYPE html>
 <html lang="es">
     <head>
-        <meta charset="UTF-8" />
-        <title>Login Básico con Token</title>
+        <meta charset="UTF-8"/>
+        <title>Cambiar Contraseña</title>
         <style>
-            /* (estilos iguales que antes) */
-            * {
-                box-sizing: border-box;
-                font-family: 'Segoe UI', sans-serif;
-            }
-
             body {
-                margin: 0;
-                padding: 0;
                 background: #f0f2f5;
+                font-family: 'Segoe UI', sans-serif;
                 display: flex;
                 justify-content: center;
                 align-items: center;
                 height: 100vh;
             }
 
-            .login-container {
+            .change-container {
                 background: #fff;
                 padding: 2rem;
                 border-radius: 12px;
@@ -31,8 +23,8 @@
             }
 
             h2 {
-                margin-bottom: 1.5rem;
                 color: #333;
+                margin-bottom: 1rem;
             }
 
             input, button {
@@ -48,7 +40,7 @@
             }
 
             button {
-                background-color: #4A90E2;
+                background-color: #4CAF50;
                 border: none;
                 color: white;
                 font-size: 16px;
@@ -56,7 +48,7 @@
             }
 
             button:hover {
-                background-color: #357ABD;
+                background-color: #3e8e41;
             }
 
             .link {
@@ -66,51 +58,41 @@
                 color: #4A90E2;
                 text-decoration: none;
             }
-
-            .link:hover {
-                text-decoration: underline;
-            }
         </style>
     </head>
     <body>
-        <div class="login-container">
-            <h2>Iniciar Sesión</h2>
-            <form id="loginForm">
+        <div class="change-container">
+            <h2>Cambiar Contraseña</h2>
+            <form id="changeForm">
                 <input type="text" id="username" placeholder="Usuario" required />
-                <input type="password" id="password" placeholder="Contraseña" required />
-                <button type="submit">Ingresar</button>
-            </form> 
-            <a class="link" href="cambiar_contraseña.html">¿Deseas cambiar tu contraseña?</a>
+                <input type="password" id="currentPassword" placeholder="Contraseña actual" required />
+                <input type="password" id="newPassword" placeholder="Nueva contraseña" required />
+                <button type="submit">Cambiar</button>
+            </form>
+            <a class="link" href="index.html">Volver al login</a>
         </div>
 
         <script>
-            function setCookie(name, value, days) {
-                const d = new Date();
-                d.setTime(d.getTime() + (days * 24 * 60 * 60 * 1000));
-                const expires = "expires=" + d.toUTCString();
-                document.cookie = name + "=" + value + ";" + expires + ";path=/";
-            }
-
-            document.getElementById('loginForm').addEventListener('submit', async (e) => {
+            document.getElementById('changeForm').addEventListener('submit', async (e) => {
                 e.preventDefault();
 
                 const username = document.getElementById('username').value;
-                const password = document.getElementById('password').value;
+                const currentPassword = document.getElementById('currentPassword').value;
+                const newPassword = document.getElementById('newPassword').value;
 
-                const res = await fetch('http://localhost:8080/login', {
+                const res = await fetch('http://localhost:8080/change-password', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
                     },
-                    body: JSON.stringify({username, password}),
+                    body: JSON.stringify({username, currentPassword, newPassword}),
                 });
 
                 const data = await res.json();
 
                 if (res.ok) {
-                    alert('Login exitoso');
-                    setCookie('token', data.token, 1);
-                    console.log("Token guardado en cookie:", data.token);
+                    alert('Contraseña cambiada correctamente');
+                    window.location.href = 'index.html';
                 } else {
                     alert('Error: ' + data.message);
                 }
