@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset='utf-8'>
+  <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+  <title>AdminLTE v4</title>
+  <meta name='viewport' content='width=device-width, initial-scale=1'>
+</head>
+<body>
+  <script>window.location.href = './dist/pages/index.html'</script>
+</body>
+</html>
+
+
+<form asp-action="Create">
+  <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+  <div class="form-group">
+      <label asp-for="IdAquiño" class="control-label"></label>
+      <input asp-for="IdAquiño" class="form-control" />
+      <span asp-validation-for="IdAquiño" class="text-danger"></span>
+  </div>
+  <div class="form-group">
+      <label asp-for="DescripcionAquiño" class="control-label"></label>
+      <input asp-for="DescripcionAquiño" class="form-control" />
+      <span asp-validation-for="DescripcionAquiño" class="text-danger"></span>
+  </div>
+  <div class="form-group">
+      <label asp-for="ConceptoAquiño" class="control-label"></label>
+      <input asp-for="ConceptoAquiño" class="form-control" />
+      <span asp-validation-for="ConceptoAquiño" class="text-danger"></span>
+  </div>
+  <div class="form-group">
+      <label asp-for="CantidadAquiño" class="control-label"></label>
+      <input asp-for="CantidadAquiño" class="form-control" />
+      <span asp-validation-for="CantidadAquiño" class="text-danger"></span>
+  </div>
+  <div class="form-group">
+      <label asp-for="ImporteAquiño" class="control-label"></label>
+      <input asp-for="ImporteAquiño" class="form-control" />
+      <span asp-validation-for="ImporteAquiño" class="text-danger"></span>
+  </div>
+  <div class="form-group">
+      <label asp-for="IgvAquiño" class="control-label"></label>
+      <input asp-for="IgvAquiño" class="form-control" />
+      <span asp-validation-for="IgvAquiño" class="text-danger"></span>
+  </div>
+  <div class="form-group">
+      <label asp-for="TotalAquiño" class="control-label"></label>
+      <input asp-for="TotalAquiño" class="form-control" />
+      <span asp-validation-for="TotalAquiño" class="text-danger"></span>
+  </div>
+  <div class="form-group">
+      <label asp-for="FechaRegistro" class="control-label"></label>
+      <input asp-for="FechaRegistro" class="form-control" />
+      <span asp-validation-for="FechaRegistro" class="text-danger"></span>
+  </div>
+  <div class="form-group">
+      <label asp-for="IdCabecera" class="control-label"></label>
+      <input asp-for="IdCabecera" class="form-control" />
+      <span asp-validation-for="IdCabecera" class="text-danger"></span>
+  </div>
+  <div class="form-group">
+      <input type="submit" value="Create" class="btn btn-primary" />
+  </div>
+</form>
