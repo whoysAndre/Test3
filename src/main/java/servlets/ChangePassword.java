@@ -35,7 +35,8 @@ public class ChangePassword extends HttpServlet {
         }
 
         String token = authHeader.substring("Bearer ".length());
-
+        
+        System.out.println(token);
         boolean isValidToken = JwtUtil.validarToken(token);
         
         if (!isValidToken) {
@@ -49,8 +50,10 @@ public class ChangePassword extends HttpServlet {
         jsonReader.close();
            
         String username = jsonObject.getString("username");
-        String password = jsonObject.getString("password");
+        String password = jsonObject.getString("currentPassword");
         String newPassword = jsonObject.getString("newPassword");
+        
+        System.out.println(username);
         
         Cliente cliente = clieDAO.findClienteByUsername(username);
         

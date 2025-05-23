@@ -5,3 +5,4 @@ D:\java\Test3\src\main\java\dao\exceptions\NonexistentEntityException.java
 D:\java\Test3\src\main\java\servlets\Login.java
 D:\java\Test3\src\main\java\dao\ClienteJpaController.java
 D:\java\Test3\src\main\java\dto\Cliente.java
+D:\java\Test3\src\main\java\servlets\ChangePassword.java

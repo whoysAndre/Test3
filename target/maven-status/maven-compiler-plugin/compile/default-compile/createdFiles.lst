@@ -1,3 +1,4 @@
+servlets\ChangePassword.class
 dao\exceptions\NonexistentEntityException.class
 utils\JwtUtil.class
 dto\Cliente_.class
