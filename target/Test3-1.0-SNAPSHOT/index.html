@@ -107,8 +107,8 @@
                 if (data.success) {
                     alert('Login exitoso');
                     Cookies.set('token', data.token, { expires: 7 }); // Guardar el token en una cookie
-
-                    console.log("Token guardado en cookie:", data.token);
+                    window.location.href = "http://localhost:8080/Test3/principal.html";
+                    //console.log("Token guardado en cookie:", data.token);
                 } else {
                     alert('Error: ' + data.message);
                 }
