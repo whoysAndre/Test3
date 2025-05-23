@@ -53,7 +53,6 @@ public class ChangePassword extends HttpServlet {
         String password = jsonObject.getString("currentPassword");
         String newPassword = jsonObject.getString("newPassword");
         
-        System.out.println(username);
         
         Cliente cliente = clieDAO.findClienteByUsername(username);
         
