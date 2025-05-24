@@ -1,9 +1,13 @@
 servlets\ChangePassword.class
+utils\FormatDate.class
 dao\exceptions\NonexistentEntityException.class
 utils\JwtUtil.class
-dto\Cliente_.class
 servlets\Login.class
-dao\exceptions\PreexistingEntityException.class
 dao\ClienteJpaController.class
+servlets\ApiClientes.class
+servlets\CrearUsuario.class
+dto\Cliente_.class
+utils\BcryptJava.class
+dao\exceptions\PreexistingEntityException.class
 dao\exceptions\IllegalOrphanException.class
 dto\Cliente.class

@@ -113,7 +113,7 @@
                 alert('Login exitoso');
                 Cookies.set('token', data.token, { expires: 7 }); // Guardar el token en una cookie
                 Cookies.set('username', username, { expires: 7 }); // Guardar el nombre de usuario en una cookie
-                //window.location.href = "http://localhost:8080/Test3/principal.html";
+                window.location.href = "http://localhost:8080/Test3/principal.html";
                 //console.log("Token guardado en cookie:", data.token);
             } else {
                 alert('Error: ' + data.message);

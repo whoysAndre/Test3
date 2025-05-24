@@ -81,8 +81,8 @@
             <input type="text" id="nomCli" placeholder="Nombre" required />
             <input type="date" id="fchNacCli" placeholder="Fecha de Nacimiento" required />
             <input type="text" id="logiCli" placeholder="Nombre de usuario" required />
-            <input type="password" id="pasCli" placeholder="ContraseÃ±a" required />
-            <input type="password" id="confirmPassword" placeholder="Confirmar contraseÃ±a" required />
+            <input type="password" id="pasCli" placeholder="Contraseña" required />
+            <input type="password" id="confirmPassword" placeholder="Confirmar contraseña" required />
             <button type="submit">Registrar</button>
         </form>
         <a class="link" href="index.html">Volver al login</a>
@@ -102,13 +102,13 @@
             const confirmPassword = document.getElementById('confirmPassword').value;
 
             if (pasCli !== confirmPassword) {
-                alert('Las contraseÃ±as no coinciden');
+                alert('Las contraseñas no coinciden');
                 return;
             }
 
             // Validar que fecha sea vÃ¡lida
             if (!fchNacCli) {
-                alert('Debe seleccionar una fecha de nacimiento vÃ¡lida');
+                alert('Debe seleccionar una fecha de nacimiento valida');
                 return;
             }
 
@@ -130,7 +130,7 @@
                     alert('Error: ' + data.message);
                 }
             } catch (error) {
-                alert('Error en la conexiÃ³n con el servidor');
+                alert('Error en la conexión con el servidor');
                 console.error(error);
             }
         });

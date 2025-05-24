@@ -1,6 +1,10 @@
 D:\java\Test3\src\main\java\utils\JwtUtil.java
+D:\java\Test3\src\main\java\servlets\ApiClientes.java
+D:\java\Test3\src\main\java\utils\FormatDate.java
+D:\java\Test3\src\main\java\servlets\CrearUsuario.java
 D:\java\Test3\src\main\java\dao\exceptions\IllegalOrphanException.java
 D:\java\Test3\src\main\java\dao\exceptions\PreexistingEntityException.java
+D:\java\Test3\src\main\java\utils\BcryptJava.java
 D:\java\Test3\src\main\java\dao\exceptions\NonexistentEntityException.java
 D:\java\Test3\src\main\java\servlets\Login.java
 D:\java\Test3\src\main\java\dao\ClienteJpaController.java
