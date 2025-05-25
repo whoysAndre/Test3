@@ -116,7 +116,7 @@
                 const res = await fetch('http://localhost:8080/Test3/crearusuario', {
                     method: 'POST',
                     headers: {
-                        'Content-Type': 'application/json',
+                        'Content-Type': 'application/json; charset=UTF-8',
                     },
                     body: JSON.stringify({ dniCli, apaCli, amaCli, nomCli, fchNacCli, logiCli, pasCli }),
                 });

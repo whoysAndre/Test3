@@ -815,7 +815,7 @@
                                     const res = await fetch('http://localhost:8080/Test3/passchange', {
                                         method: 'PUT',
                                         headers: {
-                                            'Content-Type': 'application/json',
+                                            'Content-Type': 'application/json; charset=UTF-8',
                                             'authorization': 'Bearer ' + Cookies.get('token')
                                         },
                                         body: JSON.stringify(obj)

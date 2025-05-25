@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
- */
 package servlets;
 
 import dao.ClienteJpaController;
@@ -18,7 +14,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import utils.JwtUtil;
+import utils.BcryptJava;
 
 /**
  *
@@ -33,8 +29,10 @@ public class CrearUsuario extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-        response.setContentType("application/json");
-        response.setCharacterEncoding("UTF-8");
+        request.setCharacterEncoding("UTF-8");
+        
+        response.setContentType("application/json; charset=UTF-8");
+        
         PrintWriter out = response.getWriter();
 
         try (JsonReader jsonReader = Json.createReader(request.getReader())) {
@@ -46,7 +44,7 @@ public class CrearUsuario extends HttpServlet {
             String nomCli = jsonObject.getString("nomCli");
             String fchNacCliStr = jsonObject.getString("fchNacCli"); // formato yyyy-MM-dd
             String logiCli = jsonObject.getString("logiCli");
-            String pasCli = jsonObject.getString("pasCli");
+            String pasCliPlano = jsonObject.getString("pasCli");
 
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
             Date fchNacCli = sdf.parse(fchNacCliStr);
@@ -65,7 +63,10 @@ public class CrearUsuario extends HttpServlet {
             // Generar codCli (por ej. max+1)
             int nuevoCodCli = clienteDAO.getClienteCount() + 1;
 
-            Cliente nuevoCliente = new Cliente(nuevoCodCli, dniCli, apaCli, amaCli, nomCli, fchNacCli, logiCli, pasCli);
+            // Hashear contraseña
+            String pasCliHashed = BcryptJava.hashPassword(pasCliPlano);
+            
+            Cliente nuevoCliente = new Cliente(nuevoCodCli, dniCli, apaCli, amaCli, nomCli, fchNacCli, logiCli, pasCliHashed);
 
             clienteDAO.create(nuevoCliente);
 

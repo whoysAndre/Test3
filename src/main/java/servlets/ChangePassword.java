@@ -1,4 +1,3 @@
-
 package servlets;
 
 import dao.ClienteJpaController;
@@ -14,72 +13,75 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import utils.JwtUtil;
-
+import utils.BcryptJava;
 
 @WebServlet(name = "ChangePassword", urlPatterns = {"/passchange"})
 public class ChangePassword extends HttpServlet {
 
     ClienteJpaController clieDAO = new ClienteJpaController();
-    
+
     @Override
     protected void doPut(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
-        String authHeader = request.getHeader("Authorization");
+        response.setContentType("application/json; charset=UTF-8");        
 
+        String authHeader = request.getHeader("Authorization");
         if (authHeader == null || !authHeader.startsWith("Bearer ")) {
             response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
             return;
         }
-
         String token = authHeader.substring("Bearer ".length());
-        
-        System.out.println(token);
         boolean isValidToken = JwtUtil.validarToken(token);
-        
         if (!isValidToken) {
             response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
             return;
         }
-        
+
         PrintWriter out = response.getWriter();
-        JsonReader jsonReader = Json.createReader(request.getReader());
-        javax.json.JsonObject jsonObject = jsonReader.readObject();
-        jsonReader.close();
-           
-        String username = jsonObject.getString("username");
-        String password = jsonObject.getString("currentPassword");
-        String newPassword = jsonObject.getString("newPassword");
-        
-        
-        Cliente cliente = clieDAO.findClienteByUsername(username);
-        
-        if (cliente == null) {
-            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-            return;
-        }
 
-        if (!cliente.getPasCli().equals(password)) {
-            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-            return;
-        }
+        try ( JsonReader jsonReader = Json.createReader(request.getReader())) {
+            JsonObject jsonObject = jsonReader.readObject();
 
-        JsonObject jsonResponse;
-        // Actualizar la contraseña
-        cliente.setPasCli(newPassword);
-        try {
+            String username = jsonObject.getString("username");
+            String currentPassword = jsonObject.getString("currentPassword");
+            String newPassword = jsonObject.getString("newPassword");
+
+            Cliente cliente = clieDAO.findClienteByUsername(username);
+
+            if (cliente == null) {
+                response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+                return;
+            }
+
+            // Validar contraseña actual con Bcrypt
+            if (!BcryptJava.checkPassword(currentPassword, cliente.getPasCli())) {
+                response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+                return;
+            }
+
+            // Hashear la nueva contraseña antes de guardar
+            String newHashedPassword = BcryptJava.hashPassword(newPassword);
+            cliente.setPasCli(newHashedPassword);
+
             clieDAO.edit(cliente);
-            jsonResponse = Json.createObjectBuilder()
+
+            JsonObject jsonResponse = Json.createObjectBuilder()
                     .add("success", true)
                     .build();
             out.print(jsonResponse.toString());
             out.flush();
+
         } catch (Exception e) {
             response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
             e.printStackTrace();
+            JsonObject errorResponse = Json.createObjectBuilder()
+                    .add("success", false)
+                    .add("message", "Error al cambiar contraseña: " + e.getMessage())
+                    .build();
+            out.print(errorResponse.toString());
+            out.flush();
         }
-      
     }
 }
